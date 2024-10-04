@@ -1,0 +1,410 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Autenticação",
+        "description": "Documentação da API de autenticação",
+        "contact": {
+            "email": "gabriel.gomes@outlook.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Registro de Usuário",
+                "description": "Registra um novo usuário.",
+                "operationId": "82447091133210fc21daa20fe7bee91b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nome Usuário"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "usuario@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "senhaSegura123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário criado com sucesso"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|V0upjdioPsDPjWdOyNGjJIaCQHJTJH0MQvwK5DdZ13806f99"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nome Usuário"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "usuario@email.com"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-03T15:51:05.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-03T15:51:05.000000Z"
+                                                },
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro de Validação"
+                                        },
+                                        "erros": {
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Este email já foi cadastrado"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Login de Usuário",
+                "description": "Autentica um usuário.",
+                "operationId": "f6d04be1de7bb4a85327471c8d3d1e42",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "usuario@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "senhaSegura123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário logado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário logado com sucesso"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "2|B6CL7DLBQHLFvpBPv4qHn2swyqeRH6lSAZOHsGEs66100ee8"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nome Usuário"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "usuario@email.com"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-03T15:51:05.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-03T15:51:05.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Email ou senha incorretos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email ou senha incorretos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Obter perfil do usuário autenticado",
+                "description": "Retorna o perfil do usuário autenticado.",
+                "operationId": "69ce7486fd4bda371851be0b6459a145",
+                "responses": {
+                    "200": {
+                        "description": "Perfil do usuário recuperado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User profile"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nome Usuário"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "usuario@email.com"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-03T15:51:05.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-03T15:51:05.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não autenticado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Logout do usuário autenticado",
+                "description": "Efetua o logout do usuário autenticado.",
+                "operationId": "ff979e4e699115485dc29fb752d8e3a5",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logout realizado com sucesso"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autenticado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não autenticado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Autenticação",
+            "description": "Autenticação"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Insira o token no formato (Bearer \"token\")",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "sanctum": []
+        }
+    ]
+}
