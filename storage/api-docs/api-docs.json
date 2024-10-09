@@ -384,12 +384,440 @@
                     }
                 ]
             }
+        },
+        "/api/links": {
+            "post": {
+                "tags": [
+                    "Links"
+                ],
+                "summary": "Criar um novo link",
+                "description": "Adiciona um novo link.",
+                "operationId": "63b32ef30d8996005b2f8ca1e859ae96",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "url",
+                                    "descricao",
+                                    "categoria_id",
+                                    "cidade_id",
+                                    "bairro_id"
+                                ],
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "example": "https://wa.me/5511999999999"
+                                    },
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "Descrição do link"
+                                    },
+                                    "categoria_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cidade_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "bairro_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Link criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Link criado com sucesso"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://wa.me/5511999999999"
+                                                },
+                                                "descricao": {
+                                                    "type": "string",
+                                                    "example": "Descrição do link"
+                                                },
+                                                "categoria_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "cidade_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "bairro_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-07T15:51:05.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-07T15:51:05.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erro de Validação"
+                                        },
+                                        "erros": {
+                                            "properties": {
+                                                "url": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "URL é obrigatório"
+                                                    }
+                                                },
+                                                "descricao": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Descrição é obrigatória"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/links/{id}": {
+            "get": {
+                "tags": [
+                    "Links"
+                ],
+                "summary": "Obter um link específico",
+                "description": "Retorna os detalhes de um link.",
+                "operationId": "a4eea76f1241fbbd0e37e55ea85276a0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do link",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Link recuperado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://wa.me/5511999999999"
+                                                },
+                                                "descricao": {
+                                                    "type": "string",
+                                                    "example": "Descrição do link"
+                                                },
+                                                "categoria_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "cidade_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "bairro_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-07T15:51:05.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-07T15:51:05.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Link não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Link não encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Links"
+                ],
+                "summary": "Atualizar um link existente",
+                "description": "Atualiza os dados de um link.",
+                "operationId": "e15be6a18c622e090047cb10c5afeecc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do link",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "url",
+                                    "descricao",
+                                    "categoria_id",
+                                    "cidade_id",
+                                    "bairro_id"
+                                ],
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "example": "https://wa.me/5511999999999"
+                                    },
+                                    "descricao": {
+                                        "type": "string",
+                                        "example": "Descrição atualizada do link"
+                                    },
+                                    "categoria_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cidade_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "bairro_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Link atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Link updated successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://wa.me/5511999999999"
+                                                },
+                                                "descricao": {
+                                                    "type": "string",
+                                                    "example": "Descrição atualizada do link"
+                                                },
+                                                "categoria_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "cidade_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "bairro_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-07T15:51:05.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-10-07T15:51:05.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Link não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Link não encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Links"
+                ],
+                "summary": "Deletar um link existente",
+                "description": "Remove um link do sistema.",
+                "operationId": "c2a92bc5912ebe3373f4374ac4a4c7af",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do link",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Link deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Link não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Link não encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
             "name": "Autenticação",
             "description": "Autenticação"
+        },
+        {
+            "name": "Links",
+            "description": "Links"
         }
     ],
     "components": {
