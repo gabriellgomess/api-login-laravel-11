@@ -71,43 +71,50 @@ class ApiController extends Controller
      */
 
 
-    public function register(Request $request)
-    {
-        try {
-            $validateUser = Validator::make($request->all(), [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required',
-            ]);
-
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Validation Errors',
-                    'erros' => $validateUser->errors()
-                ], 401);
-            }
-
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User created successfully',
-                'token' => $user->createToken('token')->plainTextToken,
-                'data' => $user
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Internal Server Error',
-                'error' => $th->getMessage()
-            ], 500);
-        }
-    }
+     public function register(Request $request)
+     {
+         try {
+             $validateUser = Validator::make($request->all(), [
+                 'name' => 'required',
+                 'email' => 'required|email|unique:users,email',
+                 'password' => 'required',
+             ], [
+                 'name.required' => 'O campo nome é obrigatório.',
+                 'email.required' => 'O campo e-mail é obrigatório.',
+                 'email.email' => 'O e-mail informado não é válido.',
+                 'email.unique' => 'O e-mail já está em uso.',
+                 'password.required' => 'O campo senha é obrigatório.',
+             ]);
+     
+             if ($validateUser->fails()) {
+                 return response()->json([
+                     'status' => 'error',
+                     'message' => 'Erro de validação',
+                     'erros' => $validateUser->errors()
+                 ], 401);
+             }
+     
+             $user = User::create([
+                 'name' => $request->name,
+                 'email' => $request->email,
+                 'password' => Hash::make($request->password)
+             ]);
+     
+             return response()->json([
+                 'status' => 'success',
+                 'message' => 'Usuário criado com sucesso',
+                 'token' => $user->createToken('token')->plainTextToken,
+                 'data' => $user
+             ], 200);
+         } catch (\Throwable $th) {
+             return response()->json([
+                 'status' => 'error',
+                 'message' => 'Erro interno do servidor',
+                 'error' => $th->getMessage()
+             ], 500);
+         }
+     }
+     
 
     /**
      * @OA\Post(
@@ -164,7 +171,7 @@ class ApiController extends Controller
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Validation Errors',
+                    'message' => 'Erro de validação',
                     'erros' => $validateUser->errors()
                 ], 401);
             }
@@ -172,7 +179,7 @@ class ApiController extends Controller
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Email or Password is incorrect'
+                    'message' => 'E-mail ou senha incorretos'
                 ], 401);
             }
 
@@ -180,14 +187,14 @@ class ApiController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'User logged in successfully',
+                'message' => 'Usuário logado com sucesso',
                 'token' => $user->createToken('token')->plainTextToken,
                 'data' => $user
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Internal Server Error',
+                'message' => 'Erro interno do servidor',
                 'error' => $th->getMessage()
             ], 500);
         }
@@ -234,7 +241,7 @@ class ApiController extends Controller
         $userData = auth()->user();
         return response()->json([
             'status' => 'success',
-            'message' => 'User profile',
+            'message' => 'Perfil do usuário',
             'data' => $userData,
             'id' => $userData->id
         ], 200);
@@ -271,12 +278,12 @@ class ApiController extends Controller
             auth()->user()->tokens()->delete();
             return response()->json([
                 'status' => 'success',
-                'message' => 'User logged out successfully'
+                'message' => 'Usuário deslogado com sucesso'
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Internal Server Error',
+                'message' => 'Erro interno do servidor',
                 'error' => $th->getMessage()
             ], 500);
         }
