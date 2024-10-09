@@ -28,9 +28,6 @@ Route::get(uri: "bairros", action: [BairrosController::class, "bairros"]);
 
 Route::get(uri: "links", action: [LinksController::class, "links"]);
 
-// Endpoint para buscar links filtrados por categoria, cidade ou bairro
-Route::get(uri: "links", action: [LinksController::class, "linksFiltrados"]);
-
 //Nesta rotas de baixo precisa estar autenticado para usa-lás
 Route::group([
     "middleware" => ["auth:sanctum"]
@@ -44,6 +41,9 @@ Route::group([
     // Links
     // Cadastrar um novo link
     Route::post(uri: "links", action: [LinksController::class, "cadastrarLink"]);
+
+    // Atualiza um link
+    Route::put(uri: "links", action: [LinksController::class, "atualizarLink"]);
     
     // Cadastrar uma nova categoria
     Route::post(uri: "categorias", action: [CategoriasController::class, "cadastrarCategoria"]);

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
  * @OA\Info(
  *      version="1.0.0",
  *      title="API de Autenticação",
- *      description="Documentação da API de autenticação",
+ *      description="Documentação da API de autenticação e API de gerenciamento de links",
  *      @OA\Contact(
  *          email="gabriel.gomes@outlook.com"
  *      )
